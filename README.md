@@ -1,25 +1,25 @@
 # Domain Finder
 
-A short-domain hunting tool dressed in Windows 3.1 clothing.
+Searches for short available domains so you don't have to manually check them one by one.
 
-Pick a TLD, set your character count, hit Go — available domains stream in as they're found, each one a click away from registration.
+You pick a TLD, pick how many characters you want, and hit Go. It checks domains against DNS and streams the results back as it finds them. Available ones link straight to Namecheap so you can grab them.
 
-Built for the kind of person who refreshes WHOIS lookups at 2am hoping a four-letter .ai just expired.
+The whole thing is styled like Windows 3.1 because why not.
 
 ---
 
 ## What it does
 
-- Scans for available domains by TLD (`.ai` or `.com`) and character length (2–6 letters)
-- Streams results in real time — no waiting for a full batch to finish
-- Links each available domain directly to Namecheap for purchase
-- **Readable filter** skips unpronounceable garbage like `bxqz` or `xyzz` so you only see domains a human could actually say out loud
+- Finds available `.ai` and `.com` domains between 2 and 6 characters long
+- Results stream in live as they're checked, you don't wait for everything to finish
+- Available domains link to Namecheap for purchase
+- Has a "readable only" filter that throws out unpronounceable junk like `bxqz` or `xyzz`
 
-## The UI
+## The look
 
-Beveled borders. Navy title bars. System gray everything. A taskbar with a clock.
+Beveled borders, navy title bars, system gray, a taskbar with a clock at the bottom. It looks like it runs on a Compaq Presario but it's actually a Next.js app checking live DNS under the hood.
 
-It looks like something you'd find on a Compaq Presario — but it's checking live DNS and streaming results through a modern Next.js backend. The results scroll in like a terminal feed, green for available, red for taken.
+Available domains show up green, taken ones show up red. They scroll in like a feed as the scan runs.
 
 ---
 
@@ -32,30 +32,30 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Then open [http://localhost:3000](http://localhost:3000).
 
 ## How to use it
 
-1. **Pick a TLD** — `.ai` or `.com` in the sidebar
-2. **Set character count** — 2 through 6. Shorter = rarer finds, longer = more options
-3. **Toggle "Readable only"** — on by default. Filters out triple consonants, awkward letter pairs, and anything you couldn't say in a meeting without biting your tongue
-4. **Hit Go** — domains stream in as they're checked. Available ones show estimated pricing and a buy link
-5. **Filter results** — toggle between "All" and "Available" in the results toolbar
-6. **Hit Go again** — each run generates a fresh random batch, so you'll get different results every time
+1. **Pick a TLD** in the sidebar, `.ai` or `.com`
+2. **Set character count** from 2 to 6. Shorter means rarer finds, longer gives you more to work with
+3. **"Readable only"** is on by default. It filters out triple consonants, weird letter combos, and anything you'd stumble over trying to say out loud
+4. **Hit Go** and watch domains stream in. Available ones show estimated pricing and a buy link
+5. **Filter the results** with the All/Available toggle in the toolbar
+6. **Run it again** whenever you want. Each run generates a fresh batch so you'll see different domains every time
 
-## How availability checking works
+## A note on accuracy
 
-Domains are checked via DNS resolution (A, AAAA, and MX records). If no records exist, the domain is marked as likely available.
+Availability is checked via DNS (A, AAAA, and MX records). If nothing resolves, the domain gets marked as likely available.
 
-**This is approximate.** Some registered domains have no DNS records (false positives). Some parked domains resolve via wildcard DNS (false negatives). Always confirm availability on the registrar before purchasing.
+This isn't perfect. Some registered domains don't have DNS records set up, so they'll show as available when they're not. And some parked domains resolve through wildcard DNS, so they'll show as taken when they might actually be free. Always double check on the registrar before you buy.
 
 ---
 
 ## Stack
 
-- **Next.js 14** — App Router, API routes, streaming responses
-- **Node.js `dns` module** — domain availability checks
-- **Zero external APIs** — no keys, no rate limits, no accounts needed
+- Next.js 14 with App Router and streaming API routes
+- Node.js `dns` module for availability checks
+- No external APIs, no keys, no accounts needed
 
 ## License
 
